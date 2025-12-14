@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Future Bank | User Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Segoe UI,Arial;
+ background:#eef2f7;
+}
+.container{
+ display:flex;
+ min-height:100vh;
+}
+
+/* SIDEBAR */
+.sidebar{
+ width:260px;
+ background:#020617;
+ color:white;
+ padding:20px;
+}
+.sidebar h2{
+ text-align:center;
+ margin-bottom:25px;
+}
+.sidebar button{
+ width:100%;
+ padding:14px;
+ margin:8px 0;
+ font-size:16px;
+ border:none;
+ border-radius:8px;
+ background:#1f3c88;
+ color:white;
+ cursor:pointer;
+ text-align:left;
+}
+.sidebar button:hover{
+ background:#3559c7;
+}
+
+/* MAIN */
+.main{
+ flex:1;
+ padding:30px;
+}
+.card{
+ background:white;
+ padding:25px;
+ border-radius:15px;
+ box-shadow:0 10px 25px rgba(0,0,0,0.12);
+ max-width:900px;
+}
+h3{margin-top:0}
+input,select{
+ width:100%;
+ padding:12px;
+ margin:8px 0;
+ border-radius:6px;
+ border:1px solid #ccc;
+}
+.action{
+ background:#1f3c88;
+ color:white;
+ padding:12px 18px;
+ border:none;
+ border-radius:8px;
+ cursor:pointer;
+ margin-top:10px;
+}
+ul li{margin:8px 0}
+
+/* MOBILE */
+@media(max-width:768px){
+ .container{flex-direction:column}
+ .sidebar{width:100%}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+<h2>🏦 User Panel</h2>
+<button onclick="show('balance')">💰 Account Balance</button>
+<button onclick="show('transfer')">🔁 Transfer Money</button>
+<button onclick="show('loan')">📄 Apply Loan</button>
+<button onclick="show('tx')">📜 Transaction Logger</button>
+<button onclick="show('future')">🚀 Future Bank Features</button>
+<button onclick="logout()">🚪 Logout</button>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<!-- BALANCE -->
+<div class="card" id="balance">
+<h3>Account Balance</h3>
+<p><b>Available Balance:</b> ₹ <span id="bal">50000</span></p>
+</div>
+
+<!-- TRANSFER -->
+<div class="card" id="transfer" style="display:none">
+<h3>Transfer Money</h3>
+<input placeholder="Receiver Account Number">
+<input placeholder="Amount">
+<button class="action" onclick="transfer()">Transfer</button>
+</div>
+
+<!-- LOAN -->
+<div class="card" id="loan" style="display:none">
+<h3>Apply Loan</h3>
+<select>
+<option>Home Loan</option>
+<option>Education Loan</option>
+<option>Personal Loan</option>
+<option>Business Loan</option>
+</select>
+<input placeholder="Loan Amount">
+<button class="action" onclick="loan()">Apply Loan</button>
+</div>
+
+<!-- TRANSACTIONS -->
+<div class="card" id="tx" style="display:none">
+<h3>Transaction History</h3>
+<ul id="log">
+<li>Account credited ₹50,000</li>
+</ul>
+</div>
+
+<!-- FUTURE FEATURES -->
+<div class="card" id="future" style="display:none">
+<h3>Future Bank Smart Features</h3>
+<ul>
+<li>🤖 AI Spending Advisor 
+<button class="action" onclick="ai()">Check Advice</button></li>
+
+<li>🧬 Biometric Security
+<button class="action" onclick="bio()">Verify</button></li>
+
+<li>🌱 Green Banking Score
+<button class="action" onclick="green()">View Score</button></li>
+</ul>
+</div>
+
+</div>
+</div>
+
+<script>
+let balance = 50000;
+
+function show(id){
+ ["balance","transfer","loan","tx","future"].forEach(x=>{
+  document.getElementById(x).style.display="none";
+ });
+ document.getElementById(id).style.display="block";
+}
+
+function transfer(){
+ let amt = 1000;
+ if(balance >= amt){
+  balance -= amt;
+  document.getElementById("bal").innerText = balance;
+  document.getElementById("log").innerHTML += "<li>Transferred ₹"+amt+"</li>";
+  alert("Transfer successful");
+ }else{
+  alert("Insufficient balance");
+ }
+}
+
+function loan(){
+ alert("Loan request submitted successfully");
+ document.getElementById("log").innerHTML += "<li>Loan applied</li>";
+}
+
+function ai(){
+ alert("AI Advice: You can save ₹5,000 this month");
+}
+
+function bio(){
+ alert("Biometric verification successful");
+}
+
+function green(){
+ alert("Your Green Banking Score: 85%");
+}
+
+function logout(){
+ location.href="index.html";
+}
+</script>
+
+</body>
+</html>
